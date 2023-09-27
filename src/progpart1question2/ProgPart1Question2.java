@@ -4,7 +4,7 @@
  */
 package progpart1question2;
 
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
 public class ProgPart1Question2 {
@@ -41,6 +41,7 @@ public class ProgPart1Question2 {
         }
     }
 
+    // Displays the main menu options.
     private static void displayMainMenu() {
         System.out.println("Library Management System");
         System.out.println("*********************************************");
@@ -50,25 +51,25 @@ public class ProgPart1Question2 {
         System.out.println("4. Exit");
         System.out.println("*********************************************");
         System.out.print("Enter your choice: ");
-        
-        
-       
     }
 
+    // Gets the user's choice from the console.
     private static int getUserChoice(Scanner scanner) {
         int choice = -1;
         while (choice < 1 || choice > 4) {
-            try {
+            System.out.print("Enter your choice: ");
+            if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
-                scanner.nextLine(); 
-            } catch (InputMismatchException e) {
+                scanner.nextLine(); // consume the newline character
+            } else {
                 System.out.println("Invalid input. Please enter a valid choice (1-4).");
-                scanner.nextLine();
+                scanner.nextLine(); // consume the invalid input
             }
         }
         return choice;
     }
 
+    // Adds a book to the library.
     private static void addBookToLibrary(Scanner scanner, Library library) {
         System.out.println("*********************************************");
         System.out.print("Enter Book Title: ");
@@ -86,9 +87,9 @@ public class ProgPart1Question2 {
         library.addItem(new Book(bookTitle, author, year, genre));
         System.out.println("*********************************************");
         System.out.println("Book added to the library.");
-       
     }
 
+    // Adds a DVD to the library.
     private static void addDVDToLibrary(Scanner scanner, Library library) {
         System.out.println("*********************************************");
         System.out.print("Enter DVD Title: ");
@@ -102,28 +103,28 @@ public class ProgPart1Question2 {
         library.addItem(new DVD(dvdTitle, director, year));
         System.out.println("*********************************************");
         System.out.println("DVD added to the library.");
-        
     }
 
+    // Gets a valid year from the user.
     private static int getValidYear(Scanner scanner) {
         int year = 0;
         while (year <= 0) {
-            try {
-                 System.out.println("*********************************************");
-                System.out.print("Enter Year: ");
+            System.out.print("Enter Year: ");
+            if (scanner.hasNextInt()) {
                 year = scanner.nextInt();
-                scanner.nextLine(); 
+                scanner.nextLine(); // consume the newline character
                 if (year <= 0) {
-                    throw new InputMismatchException("Year must be a positive number.");
+                    System.out.println("Year must be a positive number.");
                 }
-            } catch (InputMismatchException e) {
+            } else {
                 System.out.println("Invalid input. Year must be a positive number.");
-                scanner.nextLine(); 
+                scanner.nextLine(); // consume the invalid input
             }
         }
         return year;
     }
 
+    // Exits the library management system.
     private static void exitLibrary(Scanner scanner) {
         System.out.println("Exiting Library Management System");
         scanner.close();
